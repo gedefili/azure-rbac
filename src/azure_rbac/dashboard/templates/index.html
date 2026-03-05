@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Azure RBAC Permission Graph</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --critical: #f85149;
+      --high: #e3b341;
+      --medium: #d29922;
+      --low: #388bfd;
+      --info: #8b949e;
+      --user-color: #58a6ff;
+      --group-color: #3fb950;
+      --sp-color: #bc8cff;
+      --resource-color: #e3b341;
+      --role-color: #f78166;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace; display: flex; height: 100vh; overflow: hidden; }
+
+    /* Sidebar */
+    #sidebar { width: 320px; min-width: 280px; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+    #sidebar-header { padding: 16px; border-bottom: 1px solid var(--border); }
+    #sidebar-header h1 { font-size: 15px; font-weight: 600; color: var(--text); }
+    #sidebar-header p { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+    #filter-bar { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-btn { padding: 4px 10px; border-radius: 12px; border: 1px solid var(--border); background: transparent; color: var(--text-muted); font-size: 11px; cursor: pointer; transition: all 0.15s; }
+    .filter-btn.active, .filter-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+    #stats-panel { padding: 12px 16px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; }
+    .stat-card .label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-card .value { font-size: 20px; font-weight: 700; color: var(--text); margin-top: 2px; }
+    #findings-panel { flex: 1; overflow-y: auto; padding: 12px 16px; }
+    #findings-panel h2 { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .finding-card { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; margin-bottom: 8px; border-left: 3px solid var(--border); cursor: pointer; transition: border-color 0.15s; }
+    .finding-card:hover { border-color: var(--accent); }
+    .finding-card.critical { border-left-color: var(--critical); }
+    .finding-card.high { border-left-color: var(--high); }
+    .finding-card.medium { border-left-color: var(--medium); }
+    .finding-card.low { border-left-color: var(--low); }
+    .finding-card .sev { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .finding-card .sev.critical { color: var(--critical); }
+    .finding-card .sev.high { color: var(--high); }
+    .finding-card .sev.medium { color: var(--medium); }
+    .finding-card .sev.low { color: var(--low); }
+    .finding-card .title { font-size: 12px; font-weight: 600; }
+    .finding-card .desc { font-size: 11px; color: var(--text-muted); margin-top: 4px; line-height: 1.5; }
+
+    /* Main graph area */
+    #main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    #toolbar { padding: 10px 16px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+    #toolbar button { padding: 5px 12px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 12px; cursor: pointer; transition: background 0.15s; }
+    #toolbar button:hover { background: var(--border); }
+    #search-box { padding: 5px 10px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 12px; width: 200px; outline: none; }
+    #search-box:focus { border-color: var(--accent); }
+    #legend { display: flex; gap: 16px; margin-left: auto; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-muted); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+    #graph-container { flex: 1; position: relative; overflow: hidden; }
+    svg { width: 100%; height: 100%; }
+
+    /* Tooltip */
+    #tooltip { position: absolute; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; font-size: 12px; pointer-events: none; display: none; max-width: 280px; z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+    #tooltip .tt-title { font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    #tooltip .tt-type { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    #tooltip .tt-flags { font-size: 11px; }
+
+    /* Detail panel */
+    #detail-panel { position: absolute; right: 0; top: 0; width: 300px; height: 100%; background: var(--surface); border-left: 1px solid var(--border); overflow-y: auto; transform: translateX(100%); transition: transform 0.2s; z-index: 50; padding: 16px; }
+    #detail-panel.open { transform: translateX(0); }
+    #detail-panel h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    #detail-panel .dp-type { font-size: 11px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 12px; }
+    #detail-panel .dp-section { margin-top: 12px; }
+    #detail-panel .dp-section h4 { font-size: 11px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 6px; }
+    #detail-panel .dp-item { font-size: 12px; padding: 4px 0; border-bottom: 1px solid var(--border); }
+    #close-detail { float: right; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px; }
+
+    /* D3 node/link styles are applied via JS */
+    .node circle { stroke-width: 1.5px; cursor: pointer; transition: r 0.1s; }
+    .node circle:hover { stroke-width: 3px; }
+    .node.flagged circle { stroke: var(--critical) !important; stroke-width: 2.5px; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%, 100% { stroke-opacity: 1; } 50% { stroke-opacity: 0.4; } }
+    .node text { fill: var(--text-muted); font-size: 10px; pointer-events: none; }
+    .link { stroke: var(--border); stroke-opacity: 0.6; }
+    .link.assigned { stroke: var(--accent); stroke-opacity: 0.5; }
+    .link.scoped_to { stroke: var(--resource-color); stroke-opacity: 0.4; stroke-dasharray: 4,2; }
+
+    /* Empty state */
+    #empty-state { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; color: var(--text-muted); display: none; }
+    #empty-state h2 { font-size: 16px; margin-bottom: 8px; }
+    #empty-state p { font-size: 13px; }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside id="sidebar">
+  <div id="sidebar-header">
+    <h1>🔐 Azure RBAC Graph</h1>
+    <p id="tenant-label">Loading…</p>
+  </div>
+
+  <div id="filter-bar">
+    <button class="filter-btn active" data-type="all">All</button>
+    <button class="filter-btn" data-type="principal">Principals</button>
+    <button class="filter-btn" data-type="role">Roles</button>
+    <button class="filter-btn" data-type="resource">Resources</button>
+    <button class="filter-btn" data-type="flagged">⚠ Flagged</button>
+  </div>
+
+  <div id="stats-panel">
+    <div class="stat-card"><div class="label">Nodes</div><div class="value" id="stat-nodes">–</div></div>
+    <div class="stat-card"><div class="label">Edges</div><div class="value" id="stat-edges">–</div></div>
+    <div class="stat-card"><div class="label">Principals</div><div class="value" id="stat-principals">–</div></div>
+    <div class="stat-card"><div class="label">Findings</div><div class="value" id="stat-findings">–</div></div>
+  </div>
+
+  <div id="findings-panel">
+    <h2>Security Findings</h2>
+    <div id="findings-list"></div>
+  </div>
+</aside>
+
+<!-- Main content -->
+<main id="main">
+  <div id="toolbar">
+    <button id="btn-reset">⟳ Reset View</button>
+    <button id="btn-reload">↻ Reload Data</button>
+    <input id="search-box" type="text" placeholder="Search nodes…" />
+    <div id="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--user-color)"></div>User</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--group-color)"></div>Group</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--sp-color)"></div>Service Principal</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--role-color)"></div>Role</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--resource-color)"></div>Resource</div>
+    </div>
+  </div>
+
+  <div id="graph-container">
+    <svg id="graph-svg"></svg>
+    <div id="tooltip">
+      <div class="tt-title" id="tt-title">–</div>
+      <div class="tt-type" id="tt-type">–</div>
+      <div class="tt-flags" id="tt-flags"></div>
+    </div>
+    <div id="detail-panel">
+      <button id="close-detail" title="Close">✕</button>
+      <h3 id="dp-title">–</h3>
+      <div class="dp-type" id="dp-type">–</div>
+      <div class="dp-section">
+        <h4>Metadata</h4>
+        <div id="dp-metadata"></div>
+      </div>
+      <div class="dp-section">
+        <h4>Security Flags</h4>
+        <div id="dp-flags"></div>
+      </div>
+      <div class="dp-section">
+        <h4>Connected Nodes</h4>
+        <div id="dp-neighbours"></div>
+      </div>
+    </div>
+    <div id="empty-state">
+      <h2>No graph data</h2>
+      <p>Run <code>azure-rbac build</code> to generate a graph,<br>then restart the dashboard.</p>
+    </div>
+  </div>
+</main>
+
+<script src="/static/graph.js"></script>
+</body>
+</html>

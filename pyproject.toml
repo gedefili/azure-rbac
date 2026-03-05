@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "azure-rbac"
+version = "0.1.0"
+description = "Azure RBAC permission graph tool with AI-powered analysis"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+dependencies = [
+    # Azure SDK
+    "azure-identity>=1.16.0",
+    "azure-mgmt-authorization>=4.0.0",
+    "azure-mgmt-resource>=23.0.0",
+    "azure-mgmt-subscription>=3.0.0",
+    "azure-mgmt-managementgroups>=2.0.0",
+    "msgraph-sdk>=1.5.0",
+    # Graph
+    "networkx>=3.3",
+    # Dashboard
+    "flask>=3.0.0",
+    "flask-cors>=4.0.0",
+    # AI Foundry / Azure OpenAI
+    "openai>=1.30.0",
+    "azure-ai-projects>=1.0.0b3",
+    # Storage / Key Vault
+    "azure-storage-blob>=12.20.0",
+    "azure-keyvault-secrets>=4.8.0",
+    # Utilities
+    "python-dotenv>=1.0.0",
+    "rich>=13.7.0",
+    "typer>=0.12.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-mock>=3.14.0",
+    "ruff>=0.4.0",
+    "mypy>=1.10.0",
+]
+
+[project.scripts]
+azure-rbac = "azure_rbac.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "S"]
+ignore = ["S101"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
