@@ -1,0 +1,43 @@
+# ---------------------------------------------------------------------------
+# Example variable values – copy to terraform.tfvars and edit
+# ---------------------------------------------------------------------------
+# cp terraform.tfvars.example terraform.tfvars
+
+subscription_id = "00000000-0000-0000-0000-000000000000"
+environment     = "prd"
+location        = "eastus"
+name_suffix     = "001"
+
+tags = {
+  project    = "azure-rbac"
+  managed_by = "terraform"
+  owner      = "security-team"
+}
+
+# Container image (after first push to ACR)
+container_image_name = "azure-rbac"
+container_image_tag  = "latest"
+
+# Dashboard scaling
+dashboard_min_replicas = 1
+dashboard_max_replicas = 5
+dashboard_cpu          = 0.5
+dashboard_memory       = "1Gi"
+
+# Graph builder schedule (UTC)
+graph_builder_cron    = "0 2 * * *"
+graph_builder_timeout = 3600
+graph_builder_cpu     = 1.0
+graph_builder_memory  = "2Gi"
+
+# Storage
+storage_replication     = "GRS"
+snapshot_retention_days = 90
+
+# Log Analytics
+log_retention_days = 30
+
+# AI Foundry (optional – leave empty to skip)
+ai_foundry_endpoint   = ""
+ai_foundry_key        = ""
+ai_foundry_deployment = "gpt-4o"
