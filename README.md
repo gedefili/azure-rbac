@@ -90,7 +90,19 @@ azure-rbac/
 │   ├── architecture.md          # System architecture
 │   ├── ai-foundry-setup.md      # Azure AI Foundry setup guide
 │   ├── ai-models.md             # AI model selection planning
-│   └── deployment-options.md   # Deployment, storage, and Key Vault options
+│   ├── container-apps-plan.md   # Detailed Container Apps deployment plan
+│   └── deployment-options.md    # Deployment, storage, and Key Vault options
+├── terraform/                   # Infrastructure-as-code (Azure Container Apps)
+│   ├── main.tf                  # Provider config, resource group
+│   ├── variables.tf             # Input variables
+│   ├── outputs.tf               # Output values
+│   ├── container-apps.tf        # Container App Environment, dashboard, job
+│   ├── acr.tf                   # Azure Container Registry
+│   ├── storage.tf               # Storage Account + lifecycle policy
+│   ├── keyvault.tf              # Key Vault (RBAC-based)
+│   ├── identity.tf              # Managed Identity + role assignments
+│   ├── log-analytics.tf         # Log Analytics workspace
+│   └── terraform.tfvars.example # Example variable values
 ├── src/
 │   └── azure_rbac/
 │       ├── azure_client.py      # Azure Graph/ARM API client
@@ -120,6 +132,7 @@ azure-rbac/
 | [Architecture](docs/architecture.md) | End-to-end system design |
 | [AI Foundry Setup](docs/ai-foundry-setup.md) | How to provision AI Foundry and connect it to this tool |
 | [AI Model Selection](docs/ai-models.md) | Which Azure AI Foundry models to use and why |
+| [Container Apps Plan](docs/container-apps-plan.md) | Step-by-step Azure Container Apps deployment with Terraform |
 | [Deployment Options](docs/deployment-options.md) | Container, App Service, AKS, and serverless options; storage and Key Vault guidance |
 
 ---

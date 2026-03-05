@@ -153,20 +153,36 @@ az network private-endpoint create \
 
 ## Deployment Options
 
-### Option A: Azure Container Apps (Recommended)
+### Option A: Azure Container Apps (Recommended) ✅
 
 **Best for**: Production, auto-scaling, minimal ops overhead
+
+> **Terraform templates included.** See [`terraform/`](../terraform/) for the complete infrastructure-as-code deployment and [`docs/container-apps-plan.md`](container-apps-plan.md) for the detailed deployment plan.
 
 #### Architecture
 
 ```
-Internet → Azure Front Door → Container App Environment
-                              ├── rbac-graph-builder  (cron job)
-                              ├── rbac-dashboard      (web app, HTTP ingress)
-                              └── rbac-scheduler      (triggers nightly scan)
+Internet → HTTPS → Container App Environment
+                   ├── rbac-dashboard      (web app, HTTP ingress, 1–5 replicas)
+                   └── rbac-graph-builder  (cron job, nightly at 02:00 UTC)
+                         │
+                   ┌─────┴─────┐
+                   │ Key Vault │  Storage Account  │  ACR  │  Log Analytics
 ```
 
-#### Provisioning
+#### Quick Start with Terraform
+
+```bash
+cd terraform/
+cp terraform.tfvars.example terraform.tfvars   # edit with your values
+terraform init
+terraform plan
+terraform apply
+```
+
+This creates the Container App Environment, dashboard, scheduled graph builder job, ACR, Storage Account, Key Vault, Log Analytics workspace, managed identity, and all RBAC role assignments. See the [Container Apps Plan](container-apps-plan.md) for the full step-by-step walkthrough.
+
+#### Manual Provisioning (Azure CLI)
 
 ```bash
 # Create Container App Environment
@@ -212,6 +228,7 @@ az containerapp job create \
 | Managed TLS, custom domain | Cold start latency |
 | Built-in Dapr support | |
 | KEDA-based auto-scaling | |
+| **Terraform templates provided** | |
 
 ---
 
