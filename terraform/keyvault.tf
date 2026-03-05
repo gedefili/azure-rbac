@@ -17,7 +17,9 @@ resource "azurerm_key_vault" "rbac" {
   tags = var.tags
 }
 
-# Grant the Terraform deployer admin access to manage secrets
+# Grant the Terraform deployer admin access to manage secrets during apply.
+# In production, consider scoping this to a CI/CD service principal and
+# removing manual admin access after initial provisioning.
 resource "azurerm_role_assignment" "kv_admin" {
   scope                = azurerm_key_vault.rbac.id
   role_definition_name = "Key Vault Administrator"

@@ -125,8 +125,8 @@ variable "storage_replication" {
   default     = "GRS"
 
   validation {
-    condition     = contains(["LRS", "ZRS", "GRS", "RAGRS"], var.storage_replication)
-    error_message = "storage_replication must be one of: LRS, ZRS, GRS, RAGRS."
+    condition     = contains(["LRS", "ZRS", "GRS", "RAGRS", "GZRS", "RAGZRS"], var.storage_replication)
+    error_message = "storage_replication must be one of: LRS, ZRS, GRS, RAGRS, GZRS, RAGZRS."
   }
 }
 
