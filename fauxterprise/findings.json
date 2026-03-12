@@ -1,0 +1,1094 @@
+[
+  {
+    "id": "RBAC-002-principal:360cd368-4c5a-52f1-9136-277f2cedaa87",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User '360cd368-4c5a-52f1-9136-277f2cedaa87' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:360cd368-4c5a-52f1-9136-277f2cedaa87"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:0c388b49-9c24-54c9-8988-9b37a13b8976",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User '0c388b49-9c24-54c9-8988-9b37a13b8976' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:0c388b49-9c24-54c9-8988-9b37a13b8976"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:ecc648b1-135c-55a8-9b55-a95b2a9a291c",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User 'ecc648b1-135c-55a8-9b55-a95b2a9a291c' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:ecc648b1-135c-55a8-9b55-a95b2a9a291c"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:c7c9060a-0a09-5b53-b48d-b350d025088f",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User 'c7c9060a-0a09-5b53-b48d-b350d025088f' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:c7c9060a-0a09-5b53-b48d-b350d025088f"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:6009479e-e13b-50e2-b2ed-1923602a6920",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User '6009479e-e13b-50e2-b2ed-1923602a6920' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:6009479e-e13b-50e2-b2ed-1923602a6920"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:1f30f7fe-8c7f-52bc-b8fa-5a738ddc5b98",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User '1f30f7fe-8c7f-52bc-b8fa-5a738ddc5b98' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:1f30f7fe-8c7f-52bc-b8fa-5a738ddc5b98"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:f9807c9c-f7ee-5bd4-b6ea-ad9eecfbddbf",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User 'f9807c9c-f7ee-5bd4-b6ea-ad9eecfbddbf' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:f9807c9c-f7ee-5bd4-b6ea-ad9eecfbddbf"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:c8e77408-393f-5ba4-95ce-d680f7acffdd",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User 'c8e77408-393f-5ba4-95ce-d680f7acffdd' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:c8e77408-393f-5ba4-95ce-d680f7acffdd"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:8fdd2a41-27a1-503b-8c6d-24742fc2f58d",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User '8fdd2a41-27a1-503b-8c6d-24742fc2f58d' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:8fdd2a41-27a1-503b-8c6d-24742fc2f58d"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:f48d7d52-1b31-53bb-b5f3-1331d9f12d8d",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User 'f48d7d52-1b31-53bb-b5f3-1331d9f12d8d' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:f48d7d52-1b31-53bb-b5f3-1331d9f12d8d"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:bdb215ca-55d3-5562-ae62-5ebc54d0e125",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User 'bdb215ca-55d3-5562-ae62-5ebc54d0e125' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:bdb215ca-55d3-5562-ae62-5ebc54d0e125"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:9b4a757e-0e1a-55d5-88ae-f7f17c9d4be4",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User '9b4a757e-0e1a-55d5-88ae-f7f17c9d4be4' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:9b4a757e-0e1a-55d5-88ae-f7f17c9d4be4"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:a6ef7bc0-ebc2-58bc-8f76-1cd4f44713be",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User 'a6ef7bc0-ebc2-58bc-8f76-1cd4f44713be' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:a6ef7bc0-ebc2-58bc-8f76-1cd4f44713be"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:1276f32d-58b3-5ce2-85fd-fc59e408f439",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User '1276f32d-58b3-5ce2-85fd-fc59e408f439' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:1276f32d-58b3-5ce2-85fd-fc59e408f439"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:ea07602b-6814-521f-9e32-aef581edcb1d",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User 'ea07602b-6814-521f-9e32-aef581edcb1d' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:ea07602b-6814-521f-9e32-aef581edcb1d"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:4cceb9a4-9a2e-5ca8-8ec8-077b13aa4eae",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User '4cceb9a4-9a2e-5ca8-8ec8-077b13aa4eae' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:4cceb9a4-9a2e-5ca8-8ec8-077b13aa4eae"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:5398b251-efa8-5eed-a1ea-38618512c3d2",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User '5398b251-efa8-5eed-a1ea-38618512c3d2' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:5398b251-efa8-5eed-a1ea-38618512c3d2"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:3b58d06f-1030-5ef1-807c-94955cba6aae",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User '3b58d06f-1030-5ef1-807c-94955cba6aae' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:3b58d06f-1030-5ef1-807c-94955cba6aae"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:22bb94a2-f15e-5edb-80de-742c2eb84758",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User '22bb94a2-f15e-5edb-80de-742c2eb84758' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:22bb94a2-f15e-5edb-80de-742c2eb84758"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:400a443c-9d81-57b8-9e5a-1050533bdef2",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User '400a443c-9d81-57b8-9e5a-1050533bdef2' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:400a443c-9d81-57b8-9e5a-1050533bdef2"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:be2e6e69-e55d-5400-9895-ef326b6fee1f",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User 'be2e6e69-e55d-5400-9895-ef326b6fee1f' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:be2e6e69-e55d-5400-9895-ef326b6fee1f"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:0ce1720f-c0d7-5ca8-8ca6-49f506a46585",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User '0ce1720f-c0d7-5ca8-8ca6-49f506a46585' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:0ce1720f-c0d7-5ca8-8ca6-49f506a46585"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:b1161e54-d033-5933-b137-b181fbf1e956",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User 'b1161e54-d033-5933-b137-b181fbf1e956' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:b1161e54-d033-5933-b137-b181fbf1e956"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:2acd6f0d-5c26-5088-96ab-3ab5f1faf9d9",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User '2acd6f0d-5c26-5088-96ab-3ab5f1faf9d9' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:2acd6f0d-5c26-5088-96ab-3ab5f1faf9d9"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:d7af432f-a29d-5149-bb78-c143c848a496",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User 'd7af432f-a29d-5149-bb78-c143c848a496' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:d7af432f-a29d-5149-bb78-c143c848a496"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:6b533157-4eed-5bd8-8525-96505cd56eac",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User '6b533157-4eed-5bd8-8525-96505cd56eac' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:6b533157-4eed-5bd8-8525-96505cd56eac"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:f4a49cf5-9063-5265-b1bd-8f8e8b8fba92",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User 'f4a49cf5-9063-5265-b1bd-8f8e8b8fba92' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:f4a49cf5-9063-5265-b1bd-8f8e8b8fba92"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:7f414315-bb2c-527a-ab75-952da9ea62e9",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User '7f414315-bb2c-527a-ab75-952da9ea62e9' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:7f414315-bb2c-527a-ab75-952da9ea62e9"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:bd40feb4-56ff-551d-bdc1-f2dc1768e970",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User 'bd40feb4-56ff-551d-bdc1-f2dc1768e970' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:bd40feb4-56ff-551d-bdc1-f2dc1768e970"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:ae4669d8-ec50-5d11-a7c2-5692c77bd775",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User 'ae4669d8-ec50-5d11-a7c2-5692c77bd775' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:ae4669d8-ec50-5d11-a7c2-5692c77bd775"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:8dc60f58-91f2-595e-bab7-eab736773776",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User '8dc60f58-91f2-595e-bab7-eab736773776' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:8dc60f58-91f2-595e-bab7-eab736773776"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:485f140a-8ac3-5715-a9ab-f1ef42d671fd",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User '485f140a-8ac3-5715-a9ab-f1ef42d671fd' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:485f140a-8ac3-5715-a9ab-f1ef42d671fd"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:b479a5f2-bbfe-598c-bdc7-8432fbc461ad",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User 'b479a5f2-bbfe-598c-bdc7-8432fbc461ad' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:b479a5f2-bbfe-598c-bdc7-8432fbc461ad"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:820d866c-0118-572e-b661-2883610c848f",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User '820d866c-0118-572e-b661-2883610c848f' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:820d866c-0118-572e-b661-2883610c848f"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-002-principal:fa34cf01-fa8e-54c9-aa84-0f1f9c1691f2",
+    "severity": "medium",
+    "title": "Direct user role assignment (use groups instead)",
+    "description": "User 'fa34cf01-fa8e-54c9-aa84-0f1f9c1691f2' has 1 direct role assignment(s). Direct user assignments make access management harder to audit and scale.",
+    "affected_nodes": [
+      "principal:fa34cf01-fa8e-54c9-aa84-0f1f9c1691f2"
+    ],
+    "remediation": "Assign roles to Azure AD security groups and add the user to the appropriate group. This centralises access management and improves auditability.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/best-practices#assign-roles-to-groups-not-users"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:9518ce50-39f2-54da-b1d0-5164fe4c07ce",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '9518ce50-39f2-54da-b1d0-5164fe4c07ce' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:9518ce50-39f2-54da-b1d0-5164fe4c07ce"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:28e7ba94-0705-5305-b30b-b82b2493519d",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '28e7ba94-0705-5305-b30b-b82b2493519d' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:28e7ba94-0705-5305-b30b-b82b2493519d"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:360cd368-4c5a-52f1-9136-277f2cedaa87",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '360cd368-4c5a-52f1-9136-277f2cedaa87' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:360cd368-4c5a-52f1-9136-277f2cedaa87"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:b37fa564-746f-5e28-b075-ebfa948becc8",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID 'b37fa564-746f-5e28-b075-ebfa948becc8' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:b37fa564-746f-5e28-b075-ebfa948becc8"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:cab9b75e-fd9c-5623-bebd-a5b04d744b0e",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID 'cab9b75e-fd9c-5623-bebd-a5b04d744b0e' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:cab9b75e-fd9c-5623-bebd-a5b04d744b0e"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:06d85fe7-aa48-50e3-a9e1-ecc111207328",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '06d85fe7-aa48-50e3-a9e1-ecc111207328' has 2 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:06d85fe7-aa48-50e3-a9e1-ecc111207328"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:9e346f22-6537-5b0b-a7fb-aad6d900c071",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '9e346f22-6537-5b0b-a7fb-aad6d900c071' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:9e346f22-6537-5b0b-a7fb-aad6d900c071"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:0c388b49-9c24-54c9-8988-9b37a13b8976",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '0c388b49-9c24-54c9-8988-9b37a13b8976' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:0c388b49-9c24-54c9-8988-9b37a13b8976"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:ecc648b1-135c-55a8-9b55-a95b2a9a291c",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID 'ecc648b1-135c-55a8-9b55-a95b2a9a291c' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:ecc648b1-135c-55a8-9b55-a95b2a9a291c"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:c7c9060a-0a09-5b53-b48d-b350d025088f",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID 'c7c9060a-0a09-5b53-b48d-b350d025088f' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:c7c9060a-0a09-5b53-b48d-b350d025088f"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:6009479e-e13b-50e2-b2ed-1923602a6920",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '6009479e-e13b-50e2-b2ed-1923602a6920' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:6009479e-e13b-50e2-b2ed-1923602a6920"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:1f30f7fe-8c7f-52bc-b8fa-5a738ddc5b98",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '1f30f7fe-8c7f-52bc-b8fa-5a738ddc5b98' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:1f30f7fe-8c7f-52bc-b8fa-5a738ddc5b98"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:0f55f9d8-7069-5c2e-8d33-6b4a6464207d",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '0f55f9d8-7069-5c2e-8d33-6b4a6464207d' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:0f55f9d8-7069-5c2e-8d33-6b4a6464207d"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:3f92909e-78c2-59b5-8010-3681d3551eac",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '3f92909e-78c2-59b5-8010-3681d3551eac' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:3f92909e-78c2-59b5-8010-3681d3551eac"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:e3ae0a7d-b7de-5701-99a8-109e9d690586",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID 'e3ae0a7d-b7de-5701-99a8-109e9d690586' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:e3ae0a7d-b7de-5701-99a8-109e9d690586"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:f9807c9c-f7ee-5bd4-b6ea-ad9eecfbddbf",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID 'f9807c9c-f7ee-5bd4-b6ea-ad9eecfbddbf' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:f9807c9c-f7ee-5bd4-b6ea-ad9eecfbddbf"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:c8e77408-393f-5ba4-95ce-d680f7acffdd",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID 'c8e77408-393f-5ba4-95ce-d680f7acffdd' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:c8e77408-393f-5ba4-95ce-d680f7acffdd"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:8fdd2a41-27a1-503b-8c6d-24742fc2f58d",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '8fdd2a41-27a1-503b-8c6d-24742fc2f58d' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:8fdd2a41-27a1-503b-8c6d-24742fc2f58d"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:f48d7d52-1b31-53bb-b5f3-1331d9f12d8d",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID 'f48d7d52-1b31-53bb-b5f3-1331d9f12d8d' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:f48d7d52-1b31-53bb-b5f3-1331d9f12d8d"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:bdb215ca-55d3-5562-ae62-5ebc54d0e125",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID 'bdb215ca-55d3-5562-ae62-5ebc54d0e125' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:bdb215ca-55d3-5562-ae62-5ebc54d0e125"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:9b4a757e-0e1a-55d5-88ae-f7f17c9d4be4",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '9b4a757e-0e1a-55d5-88ae-f7f17c9d4be4' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:9b4a757e-0e1a-55d5-88ae-f7f17c9d4be4"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:a6ef7bc0-ebc2-58bc-8f76-1cd4f44713be",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID 'a6ef7bc0-ebc2-58bc-8f76-1cd4f44713be' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:a6ef7bc0-ebc2-58bc-8f76-1cd4f44713be"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:1276f32d-58b3-5ce2-85fd-fc59e408f439",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '1276f32d-58b3-5ce2-85fd-fc59e408f439' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:1276f32d-58b3-5ce2-85fd-fc59e408f439"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:ea07602b-6814-521f-9e32-aef581edcb1d",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID 'ea07602b-6814-521f-9e32-aef581edcb1d' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:ea07602b-6814-521f-9e32-aef581edcb1d"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:4cceb9a4-9a2e-5ca8-8ec8-077b13aa4eae",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '4cceb9a4-9a2e-5ca8-8ec8-077b13aa4eae' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:4cceb9a4-9a2e-5ca8-8ec8-077b13aa4eae"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:5398b251-efa8-5eed-a1ea-38618512c3d2",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '5398b251-efa8-5eed-a1ea-38618512c3d2' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:5398b251-efa8-5eed-a1ea-38618512c3d2"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:9ae7e815-4f23-59c9-98d4-804f45f97cf3",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '9ae7e815-4f23-59c9-98d4-804f45f97cf3' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:9ae7e815-4f23-59c9-98d4-804f45f97cf3"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:3b58d06f-1030-5ef1-807c-94955cba6aae",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '3b58d06f-1030-5ef1-807c-94955cba6aae' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:3b58d06f-1030-5ef1-807c-94955cba6aae"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:663639ae-250c-5eab-ac45-59559247662b",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '663639ae-250c-5eab-ac45-59559247662b' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:663639ae-250c-5eab-ac45-59559247662b"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:2cbc2938-c65e-5c5b-903b-f4bc59d6dfbe",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '2cbc2938-c65e-5c5b-903b-f4bc59d6dfbe' has 2 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:2cbc2938-c65e-5c5b-903b-f4bc59d6dfbe"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:85c3a727-ef89-547f-ad1f-51ecfecdbd7d",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '85c3a727-ef89-547f-ad1f-51ecfecdbd7d' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:85c3a727-ef89-547f-ad1f-51ecfecdbd7d"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:22bb94a2-f15e-5edb-80de-742c2eb84758",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '22bb94a2-f15e-5edb-80de-742c2eb84758' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:22bb94a2-f15e-5edb-80de-742c2eb84758"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:400a443c-9d81-57b8-9e5a-1050533bdef2",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '400a443c-9d81-57b8-9e5a-1050533bdef2' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:400a443c-9d81-57b8-9e5a-1050533bdef2"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:be2e6e69-e55d-5400-9895-ef326b6fee1f",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID 'be2e6e69-e55d-5400-9895-ef326b6fee1f' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:be2e6e69-e55d-5400-9895-ef326b6fee1f"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:0ce1720f-c0d7-5ca8-8ca6-49f506a46585",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '0ce1720f-c0d7-5ca8-8ca6-49f506a46585' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:0ce1720f-c0d7-5ca8-8ca6-49f506a46585"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:b1161e54-d033-5933-b137-b181fbf1e956",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID 'b1161e54-d033-5933-b137-b181fbf1e956' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:b1161e54-d033-5933-b137-b181fbf1e956"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:2acd6f0d-5c26-5088-96ab-3ab5f1faf9d9",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '2acd6f0d-5c26-5088-96ab-3ab5f1faf9d9' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:2acd6f0d-5c26-5088-96ab-3ab5f1faf9d9"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:d7af432f-a29d-5149-bb78-c143c848a496",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID 'd7af432f-a29d-5149-bb78-c143c848a496' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:d7af432f-a29d-5149-bb78-c143c848a496"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:6b533157-4eed-5bd8-8525-96505cd56eac",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '6b533157-4eed-5bd8-8525-96505cd56eac' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:6b533157-4eed-5bd8-8525-96505cd56eac"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:f4a49cf5-9063-5265-b1bd-8f8e8b8fba92",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID 'f4a49cf5-9063-5265-b1bd-8f8e8b8fba92' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:f4a49cf5-9063-5265-b1bd-8f8e8b8fba92"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:7f414315-bb2c-527a-ab75-952da9ea62e9",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '7f414315-bb2c-527a-ab75-952da9ea62e9' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:7f414315-bb2c-527a-ab75-952da9ea62e9"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:bd40feb4-56ff-551d-bdc1-f2dc1768e970",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID 'bd40feb4-56ff-551d-bdc1-f2dc1768e970' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:bd40feb4-56ff-551d-bdc1-f2dc1768e970"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:375d2033-90d0-52c2-8efc-038546fd9fcc",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '375d2033-90d0-52c2-8efc-038546fd9fcc' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:375d2033-90d0-52c2-8efc-038546fd9fcc"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:ae4669d8-ec50-5d11-a7c2-5692c77bd775",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID 'ae4669d8-ec50-5d11-a7c2-5692c77bd775' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:ae4669d8-ec50-5d11-a7c2-5692c77bd775"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:8dc60f58-91f2-595e-bab7-eab736773776",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '8dc60f58-91f2-595e-bab7-eab736773776' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:8dc60f58-91f2-595e-bab7-eab736773776"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:485f140a-8ac3-5715-a9ab-f1ef42d671fd",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '485f140a-8ac3-5715-a9ab-f1ef42d671fd' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:485f140a-8ac3-5715-a9ab-f1ef42d671fd"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:b479a5f2-bbfe-598c-bdc7-8432fbc461ad",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID 'b479a5f2-bbfe-598c-bdc7-8432fbc461ad' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:b479a5f2-bbfe-598c-bdc7-8432fbc461ad"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:820d866c-0118-572e-b661-2883610c848f",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID '820d866c-0118-572e-b661-2883610c848f' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:820d866c-0118-572e-b661-2883610c848f"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  },
+  {
+    "id": "RBAC-003-principal:fa34cf01-fa8e-54c9-aa84-0f1f9c1691f2",
+    "severity": "medium",
+    "title": "Possibly orphaned role assignment (unknown principal)",
+    "description": "Principal ID 'fa34cf01-fa8e-54c9-aa84-0f1f9c1691f2' has 1 active role assignment(s) but no matching Azure AD object was found. The account may have been deleted.",
+    "affected_nodes": [
+      "principal:fa34cf01-fa8e-54c9-aa84-0f1f9c1691f2"
+    ],
+    "remediation": "Verify whether this Azure AD object still exists. If deleted, remove the stale role assignment(s) via the Azure portal or `az role assignment delete --assignee <principal-id>`.",
+    "references": [
+      "https://learn.microsoft.com/en-us/azure/role-based-access-control/troubleshooting#role-assignments-with-identity-not-found"
+    ]
+  }
+]

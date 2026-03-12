@@ -1,0 +1,100 @@
+# ---------------------------------------------------------------------------
+# Docker Compose – Local Fauxterprise test environment
+#
+# Runs the azure-rbac tool against the simulated Fauxterprise fixture
+# without needing an Azure subscription.
+#
+# Usage:
+#   # 1. Generate the fixture (one-time):
+#   docker compose run --rm generate-fixture
+#
+#   # 2. Build the RBAC graph from the fixture:
+#   docker compose run --rm build-graph
+#
+#   # 3. Run security analysis:
+#   docker compose run --rm analyze
+#
+#   # 4. Launch the interactive dashboard:
+#   docker compose up dashboard
+#   # → Open http://localhost:5000
+#
+#   # Or run the full pipeline in one shot:
+#   docker compose up pipeline
+# ---------------------------------------------------------------------------
+
+services:
+  # Generate fixture.json from Terraform definitions
+  generate-fixture:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    volumes:
+      - fixture-data:/data
+      - ../fauxterprise:/fauxterprise:ro
+    entrypoint: ["python", "/fauxterprise/generate_fixture.py", "-o", "/data/fixture.json"]
+    profiles: ["tools"]
+
+  # Build the RBAC graph using the fixture (no Azure credentials needed)
+  build-graph:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    volumes:
+      - fixture-data:/data
+    entrypoint: ["azure-rbac", "build", "--fixture", "/data/fixture.json", "--output", "/data/graph.json"]
+    depends_on:
+      generate-fixture:
+        condition: service_completed_successfully
+    profiles: ["tools"]
+
+  # Run security analysis on the built graph
+  analyze:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    volumes:
+      - fixture-data:/data
+    entrypoint: ["azure-rbac", "analyze", "--graph", "/data/graph.json", "--output", "/data/findings.json"]
+    depends_on:
+      build-graph:
+        condition: service_completed_successfully
+    profiles: ["tools"]
+
+  # Interactive dashboard showing the graph and findings
+  dashboard:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - fixture-data:/data
+    command: >
+      gunicorn --bind 0.0.0.0:5000 --workers 2 --timeout 120
+      --access-logfile - "azure_rbac.dashboard.app:create_app('/data/graph.json')"
+
+  # Full pipeline: generate → build → analyze → dashboard
+  pipeline:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - fixture-data:/data
+      - ../fauxterprise:/fauxterprise:ro
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - |
+        echo "=== Generating fixture ===" &&
+        python /fauxterprise/generate_fixture.py -o /data/fixture.json &&
+        echo "=== Building RBAC graph ===" &&
+        azure-rbac build --fixture /data/fixture.json --output /data/graph.json &&
+        echo "=== Running analysis ===" &&
+        azure-rbac analyze --graph /data/graph.json --output /data/findings.json &&
+        echo "=== Starting dashboard ===" &&
+        gunicorn --bind 0.0.0.0:5000 --workers 2 --timeout 120 \
+          --access-logfile - "azure_rbac.dashboard.app:create_app('/data/graph.json')"
+
+volumes:
+  fixture-data:

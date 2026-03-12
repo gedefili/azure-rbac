@@ -1,0 +1,5 @@
+prefix   = "faux"
+domain   = "fauxterprise.onmicrosoft.com"
+primary_location       = "eastus2"
+secondary_location     = "westus2"
+express_route_location = "Washington DC"
