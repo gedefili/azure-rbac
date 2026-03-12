@@ -14,6 +14,12 @@ resource "azurerm_key_vault" "rbac" {
   soft_delete_retention_days = var.keyvault_soft_delete_retention_days
   purge_protection_enabled   = true
 
+  # Network ACLs – Default deny; allow Azure services (Container Apps)
+  network_acls {
+    default_action = "Deny"
+    bypass         = "AzureServices"
+  }
+
   tags = var.tags
 }
 

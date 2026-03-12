@@ -11,8 +11,12 @@ resource "azurerm_storage_account" "rbac" {
   account_replication_type = var.storage_replication
   account_kind             = "StorageV2"
   min_tls_version          = "TLS1_2"
+  https_traffic_only_enabled = true
 
   allow_nested_items_to_be_public = false
+
+  # Disable shared key access – force Azure AD/RBAC authentication only
+  shared_access_key_enabled = false
 
   tags = var.tags
 }

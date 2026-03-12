@@ -76,6 +76,27 @@ resource "azurerm_container_app" "dashboard" {
         name  = "DASHBOARD_PORT"
         value = "5000"
       }
+
+      liveness_probe {
+        transport = "HTTP"
+        path      = "/api/health"
+        port      = 5000
+
+        initial_delay    = 10
+        interval_seconds = 30
+        timeout          = 5
+        failure_count_threshold = 3
+      }
+
+      readiness_probe {
+        transport = "HTTP"
+        path      = "/api/health"
+        port      = 5000
+
+        interval_seconds = 10
+        timeout          = 3
+        failure_count_threshold = 3
+      }
     }
   }
 
