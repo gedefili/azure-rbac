@@ -1,3 +1,11 @@
+# Repository: azure-rbac
+# Path: src/azure_rbac/security_analyzer.py
+# Purpose: Run security checks against the RBAC graph and produce findings
+# Author: SanMar Platform Team
+# Created: 2026-01-14
+# Last-Modified: 2026-03-06
+# Version: 0.1.0
+
 """Security analyzer for the Azure RBAC permission graph.
 
 Inspects the graph produced by GraphBuilder and returns structured security

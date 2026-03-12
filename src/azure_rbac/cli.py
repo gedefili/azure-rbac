@@ -1,3 +1,11 @@
+# Repository: azure-rbac
+# Path: src/azure_rbac/cli.py
+# Purpose: Typer CLI entry-point for build, analyze, advise, and dashboard commands
+# Author: SanMar Platform Team
+# Created: 2026-01-14
+# Last-Modified: 2026-03-06
+# Version: 0.1.0
+
 """Typer CLI entry-point for the azure-rbac tool."""
 
 from __future__ import annotations
@@ -32,14 +40,30 @@ def _setup_logging(verbose: bool) -> None:
 @app.command("build")
 def build_graph(
     output: Annotated[Path, typer.Option("--output", "-o", help="Output JSON file path")] = Path("graph.json"),
+    fixture: Annotated[Optional[Path], typer.Option("--fixture", "-f", help="Path to a JSON fixture file (skips Azure API calls)")] = None,
     verbose: Annotated[bool, typer.Option("--verbose", "-v")] = False,
 ) -> None:
-    """Discover the full tenant RBAC structure and save as a graph JSON file."""
+    """Discover the full tenant RBAC structure and save as a graph JSON file.
+
+    Use --fixture to load a pre-generated Fauxterprise fixture instead of
+    calling the Azure APIs.  Generate one with::
+
+        python fauxterprise/generate_fixture.py
+    """
     _setup_logging(verbose)
-    from azure_rbac.azure_client import AzureClient
     from azure_rbac.graph_builder import GraphBuilder
 
-    client = AzureClient()
+    if fixture:
+        if not fixture.exists():
+            console.print(f"[red]Fixture file not found: {fixture}[/red]")
+            raise typer.Exit(1)
+        from azure_rbac.mock_client import MockAzureClient
+        client = MockAzureClient(fixture)
+        console.print(f"[cyan]Using fixture: {fixture}[/cyan]")
+    else:
+        from azure_rbac.azure_client import AzureClient
+        client = AzureClient()
+
     builder = GraphBuilder(client)
     builder.build()
     builder.save(output)
