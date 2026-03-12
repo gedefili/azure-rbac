@@ -1,0 +1,356 @@
+# ---------------------------------------------------------------------------
+# Azure RBAC Permission Graph Tool – Azure DevOps CI/CD Pipeline
+# ---------------------------------------------------------------------------
+#
+# Authentication
+# --------------
+# This pipeline uses an Azure DevOps **Service Connection** with
+# **Workload Identity Federation (OIDC)**. This is the recommended
+# enterprise approach – no client secrets to manage or rotate.
+#
+#   Fallback: If your organisation requires an App Registration with a
+#   client secret, create an ARM service connection of type
+#   "Service Principal (manual)" and reference it by the same name below.
+#   Both types are configured identically in the pipeline YAML.
+#
+# Setup checklist
+# ---------------
+# 1. Create Service Connections in Azure DevOps → Project Settings →
+#    Service connections → New → Azure Resource Manager →
+#    Workload Identity federation (automatic).
+#    Create one per environment: AzureRbac-Dev, AzureRbac-Stg, AzureRbac-Prd
+#
+# 2. Grant the service principal these Azure RBAC roles:
+#    • Contributor  on the resource group  (deploy infra + container apps)
+#    • AcrPush      on the ACR             (push images)
+#    • User Access Administrator on the RG (create RBAC assignments via TF)
+#
+# 3. Create Variable Groups in Azure DevOps Library for each environment:
+#    • azure-rbac-dev / azure-rbac-stg / azure-rbac-prd
+#    See "Variable Groups" section below for required variables.
+#
+# 4. For Terraform state, create a backend storage account (see docs/
+#    container-apps-plan.md § Step 1).
+#
+# 5. Store sensitive Terraform variables (ai_foundry_key) in the
+#    variable group as a secret variable.
+#
+# ---------------------------------------------------------------------------
+
+trigger:
+  branches:
+    include:
+      - main
+      - release/*
+  paths:
+    exclude:
+      - docs/**
+      - '*.md'
+      - LICENSE
+
+pr:
+  branches:
+    include:
+      - main
+  paths:
+    exclude:
+      - docs/**
+      - '*.md'
+
+# ---------------------------------------------------------------------------
+# Variables & parameters
+# ---------------------------------------------------------------------------
+
+parameters:
+  - name: environment
+    displayName: Target environment
+    type: string
+    default: dev
+    values:
+      - dev
+      - stg
+      - prd
+
+  - name: deployInfra
+    displayName: Deploy Terraform infrastructure
+    type: boolean
+    default: false
+
+  - name: forceImageBuild
+    displayName: Force container image rebuild
+    type: boolean
+    default: false
+
+variables:
+  # --- Shared across all stages ---
+  imageRepository: 'azure-rbac'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  pythonVersion: '3.12'
+
+  # --- Resolved per environment from variable groups ---
+  # Variable groups supply: subscriptionId, acrName, resourceGroup,
+  # dashboardApp, graphBuilderJob, serviceConnection, tfBackendStorageAccount,
+  # tfBackendContainer, tfBackendKey, environment, nameSuffix
+  - group: azure-rbac-${{ parameters.environment }}
+
+# ---------------------------------------------------------------------------
+# Stages
+# ---------------------------------------------------------------------------
+
+stages:
+  # ========================================================================
+  # Stage 1: Build & Test
+  # ========================================================================
+  - stage: Build
+    displayName: 'Build & Test'
+    jobs:
+      - job: TestAndLint
+        displayName: 'Python tests, lint & type check'
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - task: UsePythonVersion@0
+            displayName: 'Use Python $(pythonVersion)'
+            inputs:
+              versionSpec: '$(pythonVersion)'
+
+          - script: |
+              python -m pip install --upgrade pip
+              pip install -e ".[dev]"
+            displayName: 'Install dependencies'
+
+          - script: ruff check src/ tests/
+            displayName: 'Lint (ruff)'
+
+          - script: mypy src/azure_rbac/ --ignore-missing-imports
+            displayName: 'Type check (mypy)'
+
+          - script: pytest --junitxml=$(Build.SourcesDirectory)/test-results.xml
+            displayName: 'Unit tests (pytest)'
+
+          - task: PublishTestResults@2
+            displayName: 'Publish test results'
+            condition: succeededOrFailed()
+            inputs:
+              testResultsFormat: 'JUnit'
+              testResultsFiles: 'test-results.xml'
+              searchFolder: '$(Build.SourcesDirectory)'
+
+      # -------------------------------------------------------------------
+      # Build and push container image
+      # -------------------------------------------------------------------
+      - job: BuildImage
+        displayName: 'Build & push container image'
+        dependsOn: TestAndLint
+        condition: |
+          or(
+            eq(variables['Build.SourceBranch'], 'refs/heads/main'),
+            startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'),
+            eq('${{ parameters.forceImageBuild }}', 'true')
+          )
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - task: AzureCLI@2
+            displayName: 'Login to ACR and build image'
+            inputs:
+              azureSubscription: '$(serviceConnection)'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                set -euo pipefail
+
+                IMAGE_TAG_SHA="$(acrName).azurecr.io/$(imageRepository):$(Build.SourceVersion)"
+                IMAGE_TAG_BUILD="$(acrName).azurecr.io/$(imageRepository):build-$(Build.BuildId)"
+                IMAGE_TAG_LATEST="$(acrName).azurecr.io/$(imageRepository):latest"
+
+                echo "##vso[task.setvariable variable=imageTagSha;isOutput=true]${IMAGE_TAG_SHA}"
+
+                echo "Building image: ${IMAGE_TAG_SHA}"
+                az acr login --name $(acrName)
+
+                docker build \
+                  --tag "${IMAGE_TAG_SHA}" \
+                  --tag "${IMAGE_TAG_BUILD}" \
+                  --tag "${IMAGE_TAG_LATEST}" \
+                  --label "git.commit=$(Build.SourceVersion)" \
+                  --label "build.id=$(Build.BuildId)" \
+                  --label "build.pipeline=$(Build.DefinitionName)" \
+                  --file $(dockerfilePath) \
+                  $(Build.SourcesDirectory)
+
+                docker push "${IMAGE_TAG_SHA}"
+                docker push "${IMAGE_TAG_BUILD}"
+                docker push "${IMAGE_TAG_LATEST}"
+
+                echo "✓ Pushed: ${IMAGE_TAG_SHA}"
+                echo "✓ Pushed: ${IMAGE_TAG_BUILD}"
+                echo "✓ Pushed: ${IMAGE_TAG_LATEST}"
+            name: pushImage
+
+          # --- Vulnerability scan ---
+          - script: |
+              export TRIVY_VERSION="0.58.0"
+              wget -qO- "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz" | tar xz trivy
+              ./trivy image \
+                --severity CRITICAL,HIGH \
+                --exit-code 1 \
+                --ignore-unfixed \
+                --format table \
+                "$(acrName).azurecr.io/$(imageRepository):$(Build.SourceVersion)"
+            displayName: 'Scan image for vulnerabilities (Trivy)'
+            condition: succeeded()
+
+  # ========================================================================
+  # Stage 2: Deploy Infrastructure (Terraform) – optional
+  # ========================================================================
+  - stage: Infrastructure
+    displayName: 'Terraform – ${{ parameters.environment }}'
+    dependsOn: Build
+    condition: |
+      and(
+        succeeded(),
+        eq('${{ parameters.deployInfra }}', 'true')
+      )
+    jobs:
+      - deployment: TerraformApply
+        displayName: 'Terraform plan & apply'
+        environment: 'azure-rbac-${{ parameters.environment }}'
+        pool:
+          vmImage: 'ubuntu-latest'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+
+                - task: TerraformInstaller@1
+                  displayName: 'Install Terraform'
+                  inputs:
+                    terraformVersion: 'latest'
+
+                - task: AzureCLI@2
+                  displayName: 'Terraform init, plan & apply'
+                  inputs:
+                    azureSubscription: '$(serviceConnection)'
+                    scriptType: 'bash'
+                    scriptLocation: 'inlineScript'
+                    addSpnToEnvironment: true
+                    workingDirectory: '$(Build.SourcesDirectory)/terraform'
+                    inlineScript: |
+                      set -euo pipefail
+
+                      # Export ARM credentials for Terraform AzureRM provider
+                      export ARM_CLIENT_ID="$servicePrincipalId"
+                      export ARM_OIDC_TOKEN="$idToken"
+                      export ARM_TENANT_ID="$tenantId"
+                      export ARM_SUBSCRIPTION_ID="$(subscriptionId)"
+                      export ARM_USE_OIDC=true
+
+                      # Terraform init with remote backend
+                      terraform init \
+                        -backend-config="resource_group_name=rg-terraform-state" \
+                        -backend-config="storage_account_name=$(tfBackendStorageAccount)" \
+                        -backend-config="container_name=$(tfBackendContainer)" \
+                        -backend-config="key=$(tfBackendKey)"
+
+                      # Plan
+                      terraform plan \
+                        -var="subscription_id=$(subscriptionId)" \
+                        -var="environment=${{ parameters.environment }}" \
+                        -var="name_suffix=$(nameSuffix)" \
+                        -var="container_image_tag=$(Build.SourceVersion)" \
+                        -out=tfplan \
+                        -input=false
+
+                      # Apply (auto-approve for non-prd; prd uses environment gate)
+                      terraform apply -input=false tfplan
+
+                      # Capture outputs for downstream stages
+                      echo "##vso[task.setvariable variable=dashboardFqdn;isOutput=true]$(terraform output -raw dashboard_fqdn)"
+                      echo "##vso[task.setvariable variable=acrLoginServer;isOutput=true]$(terraform output -raw acr_login_server)"
+
+  # ========================================================================
+  # Stage 3: Deploy Application
+  # ========================================================================
+  - stage: Deploy
+    displayName: 'Deploy – ${{ parameters.environment }}'
+    dependsOn:
+      - Build
+      - Infrastructure
+    condition: |
+      and(
+        succeeded('Build'),
+        in(dependencies.Infrastructure.result, 'Succeeded', 'Skipped')
+      )
+    jobs:
+      - deployment: DeployContainerApps
+        displayName: 'Update Container Apps'
+        environment: 'azure-rbac-${{ parameters.environment }}'
+        pool:
+          vmImage: 'ubuntu-latest'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureCLI@2
+                  displayName: 'Deploy dashboard container app'
+                  inputs:
+                    azureSubscription: '$(serviceConnection)'
+                    scriptType: 'bash'
+                    scriptLocation: 'inlineScript'
+                    inlineScript: |
+                      set -euo pipefail
+
+                      IMAGE="$(acrName).azurecr.io/$(imageRepository):$(Build.SourceVersion)"
+                      echo "Deploying image: ${IMAGE}"
+
+                      # Update the dashboard container app
+                      az containerapp update \
+                        --name $(dashboardApp) \
+                        --resource-group $(resourceGroup) \
+                        --image "${IMAGE}"
+
+                      echo "✓ Dashboard updated"
+
+                      # Update the graph builder job image
+                      az containerapp job update \
+                        --name $(graphBuilderJob) \
+                        --resource-group $(resourceGroup) \
+                        --image "${IMAGE}"
+
+                      echo "✓ Graph builder job updated"
+
+                - task: AzureCLI@2
+                  displayName: 'Verify deployment health'
+                  inputs:
+                    azureSubscription: '$(serviceConnection)'
+                    scriptType: 'bash'
+                    scriptLocation: 'inlineScript'
+                    inlineScript: |
+                      set -euo pipefail
+
+                      # Get the dashboard FQDN
+                      FQDN=$(az containerapp show \
+                        --name $(dashboardApp) \
+                        --resource-group $(resourceGroup) \
+                        --query "properties.configuration.ingress.fqdn" \
+                        --output tsv)
+
+                      echo "Dashboard URL: https://${FQDN}"
+
+                      # Health check with retries
+                      MAX_RETRIES=10
+                      RETRY_INTERVAL=15
+                      for i in $(seq 1 $MAX_RETRIES); do
+                        HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "https://${FQDN}/api/health" || echo "000")
+                        if [[ "$HTTP_CODE" == "200" ]]; then
+                          echo "✓ Health check passed (attempt ${i}/${MAX_RETRIES})"
+                          exit 0
+                        fi
+                        echo "⏳ Health check returned ${HTTP_CODE}, retrying in ${RETRY_INTERVAL}s (${i}/${MAX_RETRIES})..."
+                        sleep $RETRY_INTERVAL
+                      done
+
+                      echo "✗ Health check failed after ${MAX_RETRIES} attempts"
+                      exit 1
