@@ -1,3 +1,11 @@
+# Repository: azure-rbac
+# Path: src/azure_rbac/azure_client.py
+# Purpose: Thin Azure SDK wrapper exposing a testable interface for RBAC discovery
+# Author: SanMar Platform Team
+# Created: 2026-01-14
+# Last-Modified: 2026-03-06
+# Version: 0.1.0
+
 """Azure API client.
 
 Wraps azure-identity, azure-mgmt-authorization, azure-mgmt-resource, and

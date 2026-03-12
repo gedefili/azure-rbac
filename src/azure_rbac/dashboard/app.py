@@ -1,7 +1,24 @@
+# Repository: azure-rbac
+# Path: src/azure_rbac/dashboard/app.py
+# Purpose: Flask dashboard server with REST API for the D3.js front-end
+# Author: SanMar Platform Team
+# Created: 2026-01-14
+# Last-Modified: 2026-03-06
+# Version: 0.1.0
+
 """Flask dashboard server for the Azure RBAC graph tool.
 
 Exposes a REST API consumed by the D3.js front-end and serves the
 single-page HTML dashboard.
+
+Security notes
+--------------
+- CORS is restricted to same-origin by default (no wildcard).
+- Security headers (CSP, X-Frame-Options, etc.) are applied to every response.
+- The ``/api/graph/reload`` endpoint requires the ``X-Reload-Token`` header to
+  match the ``RELOAD_TOKEN`` environment variable when set.
+- In production, run behind a reverse proxy (Container Apps ingress handles TLS)
+  and use Azure AD / Easy Auth for authentication.
 """
 
 from __future__ import annotations
@@ -34,7 +51,35 @@ def create_app(graph_path: str = "graph.json") -> Flask:
         template_folder=str(_TEMPLATE_DIR),
         static_folder=str(_STATIC_DIR),
     )
-    CORS(app)
+
+    # ------------------------------------------------------------------
+    # CORS – restrict to same origin; override via CORS_ORIGINS env var
+    # ------------------------------------------------------------------
+    allowed_origins = os.environ.get("CORS_ORIGINS", "").split(",")
+    allowed_origins = [o.strip() for o in allowed_origins if o.strip()]
+    if allowed_origins:
+        CORS(app, origins=allowed_origins)
+    # When no origins configured, Flask serves same-origin only (no CORS headers)
+
+    # ------------------------------------------------------------------
+    # Security headers applied to every response
+    # ------------------------------------------------------------------
+    @app.after_request
+    def _set_security_headers(response: Response) -> Response:
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        response.headers["Permissions-Policy"] = "geolocation=(), camera=(), microphone=()"
+        response.headers["Content-Security-Policy"] = (
+            "default-src 'self'; "
+            "script-src 'self' https://d3js.org; "
+            "style-src 'self' 'unsafe-inline'; "
+            "img-src 'self' data:; "
+            "connect-src 'self'"
+        )
+        # Remove server header to avoid fingerprinting
+        response.headers.pop("Server", None)
+        return response
 
     # ------------------------------------------------------------------
     # In-memory graph cache
@@ -132,7 +177,16 @@ def create_app(graph_path: str = "graph.json") -> Flask:
 
     @app.route("/api/graph/reload", methods=["POST"])
     def api_reload() -> Response:
-        """Clear the in-memory cache so the next request re-reads from disk."""
+        """Clear the in-memory cache so the next request re-reads from disk.
+
+        When the RELOAD_TOKEN env var is set, callers must send a matching
+        ``X-Reload-Token`` header to prevent unauthorized cache flushes.
+        """
+        expected_token = os.environ.get("RELOAD_TOKEN", "")
+        if expected_token:
+            provided = request.headers.get("X-Reload-Token", "")
+            if provided != expected_token:
+                return jsonify({"error": "Unauthorized"}), 403  # type: ignore[return-value]
         _cache.clear()
         return jsonify({"status": "ok"})
 
@@ -145,7 +199,7 @@ def create_app(graph_path: str = "graph.json") -> Flask:
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
+    # Development server only – use gunicorn in production (see Dockerfile).
     port = int(os.environ.get("DASHBOARD_PORT", "5000"))
-    debug = os.environ.get("DASHBOARD_DEBUG", "false").lower() == "true"
     flask_app = create_app()
-    flask_app.run(host="0.0.0.0", port=port, debug=debug)
+    flask_app.run(host="127.0.0.1", port=port, debug=False)
