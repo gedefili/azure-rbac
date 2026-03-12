@@ -31,13 +31,16 @@ terraform {
     }
   }
 
-  # Uncomment to use a remote backend (recommended for teams):
-  # backend "azurerm" {
-  #   resource_group_name  = "rg-terraform-state"
-  #   storage_account_name = "sttfstate<suffix>"
-  #   container_name       = "tfstate"
-  #   key                  = "azure-rbac.tfstate"
-  # }
+  # Remote backend – required for CI/CD and team use.
+  # Backend config values are passed via -backend-config flags in the pipeline
+  # (see azure-pipelines.yml) or filled in manually for local use.
+  backend "azurerm" {
+    resource_group_name  = "rg-terraform-state"
+    storage_account_name = "sttfstate001"
+    container_name       = "tfstate"
+    key                  = "azure-rbac.tfstate"
+    use_oidc             = true         # Required for Workload Identity Federation
+  }
 }
 
 provider "azurerm" {

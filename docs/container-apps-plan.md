@@ -377,7 +377,35 @@ terraform plan -out=tfplan && terraform apply tfplan
 
 ## Step 7 – Set Up CI/CD
 
-### GitHub Actions Workflow
+### Azure DevOps Pipeline (Recommended)
+
+The repository includes a production-ready Azure DevOps pipeline at [`azure-pipelines.yml`](../azure-pipelines.yml). See the **[Azure DevOps Setup Guide](azure-devops-setup.md)** for the full walkthrough covering:
+
+- Workload Identity Federation (OIDC) service connections — no client secrets to rotate
+- Variable groups per environment (dev / stg / prd)
+- Approval gates for staging and production
+- Terraform state backend configuration
+
+#### Quick Start
+
+1. Push the repository to Azure DevOps.
+2. Create service connections with Workload Identity Federation.
+3. Create variable groups (`azure-rbac-dev`, `azure-rbac-stg`, `azure-rbac-prd`).
+4. Import the pipeline from `azure-pipelines.yml`.
+5. Run with **deployInfra = true** for the initial deployment.
+
+#### Pipeline Stages
+
+| Stage | Purpose | Trigger |
+|---|---|---|
+| **Build & Test** | pytest, ruff, mypy, Docker build, Trivy scan | Every push to `main` or `release/*` |
+| **Infrastructure** | Terraform plan & apply (optional, parameter-gated) | Manual toggle |
+| **Deploy** | Update Container Apps with new image, health check | After Build succeeds |
+
+### GitHub Actions (Legacy Reference)
+
+<details>
+<summary>Click to expand GitHub Actions workflow (for teams not on Azure DevOps)</summary>
 
 Create `.github/workflows/deploy.yml`:
 
@@ -489,6 +517,8 @@ jobs:
       - run: terraform apply -auto-approve
         if: github.ref == 'refs/heads/main'
 ```
+
+</details>
 
 ---
 

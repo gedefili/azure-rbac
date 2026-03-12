@@ -427,7 +427,24 @@ docker push <acr-name>.azurecr.io/azure-rbac:latest
 
 ---
 
-## CI/CD Pipeline (GitHub Actions)
+## CI/CD Pipeline
+
+### Azure DevOps (Recommended)
+
+The repository includes a production-ready Azure DevOps pipeline at [`azure-pipelines.yml`](../azure-pipelines.yml) with:
+
+- **Workload Identity Federation** (OIDC) — no client secrets to manage
+- **Three stages**: Build & Test → Infrastructure (Terraform) → Deploy
+- **Trivy vulnerability scanning** on every image build
+- **Environment approval gates** for staging and production
+- **Git SHA image tags** for full traceability
+
+See the **[Azure DevOps Setup Guide](azure-devops-setup.md)** for the complete walkthrough.
+
+### GitHub Actions (Alternative)
+
+<details>
+<summary>Click to expand GitHub Actions workflow</summary>
 
 ```yaml
 # .github/workflows/deploy.yml
@@ -469,6 +486,8 @@ jobs:
         resourceGroup: rg-rbac
         imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/azure-rbac:${{ github.sha }}
 ```
+
+</details>
 
 ---
 

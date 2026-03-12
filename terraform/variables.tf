@@ -60,6 +60,21 @@ variable "container_image_tag" {
 }
 
 # ---------------------------------------------------------------------------
+# Azure Container Registry
+# ---------------------------------------------------------------------------
+
+variable "acr_sku" {
+  description = "SKU for Azure Container Registry. Use 'Premium' in production for content trust and private endpoints."
+  type        = string
+  default     = "Premium"
+
+  validation {
+    condition     = contains(["Basic", "Standard", "Premium"], var.acr_sku)
+    error_message = "acr_sku must be one of: Basic, Standard, Premium."
+  }
+}
+
+# ---------------------------------------------------------------------------
 # Dashboard Container App
 # ---------------------------------------------------------------------------
 
