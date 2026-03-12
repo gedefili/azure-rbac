@@ -1,0 +1,323 @@
+{
+  "$schema": "scenarios-schema.json",
+  "version": "1.0.0",
+  "description": "Security and RBAC scenarios modeled by the Fauxterprise Terraform environment",
+  "categories": {
+    "over-privilege": "Users or groups with more permissions than needed",
+    "identity-hygiene": "Group membership patterns that create unintended access",
+    "data-plane": "Storage and Key Vault data-plane vs management-plane access models",
+    "stale-access": "Permissions that should have been revoked",
+    "separation-of-duties": "Roles that violate least-privilege or SoD principles",
+    "monitoring": "Observability and audit-related role grants",
+    "network": "Network topology and peering patterns",
+    "hierarchy": "Management group placement and inheritance"
+  },
+  "scenarios": [
+    {
+      "id": "S01",
+      "title": "Over-privileged break-glass account",
+      "category": "over-privilege",
+      "severity": "critical",
+      "description": "User 0 has Owner on every resource group in prod_app1. This simulates a break-glass account whose scope was never narrowed after initial setup.",
+      "terraform_source": "modules/role-assignments/main.tf",
+      "terraform_resource": "azurerm_role_assignment.break_glass_prod1",
+      "principal": { "type": "User", "index": 0 },
+      "role": "Owner",
+      "scope": "prod_app1 (all RGs)",
+      "expected_findings": [
+        "Owner assigned directly to individual user",
+        "User has Owner on production resources"
+      ]
+    },
+    {
+      "id": "S02",
+      "title": "Shadow admin with cross-environment Owner",
+      "category": "over-privilege",
+      "severity": "critical",
+      "description": "User 99 has Owner on all RGs in both prod_app2 AND staging. This models a shadow admin who accumulated privileges across environments without review.",
+      "terraform_source": "modules/role-assignments/main.tf",
+      "terraform_resources": [
+        "azurerm_role_assignment.shadow_admin_prod2",
+        "azurerm_role_assignment.shadow_admin_staging"
+      ],
+      "principal": { "type": "User", "index": 99 },
+      "role": "Owner",
+      "scope": "prod_app2 + staging (all RGs)",
+      "expected_findings": [
+        "Owner assigned directly to individual user",
+        "User has Owner across multiple environments"
+      ]
+    },
+    {
+      "id": "S03",
+      "title": "User Access Administrator on staging",
+      "category": "separation-of-duties",
+      "severity": "high",
+      "description": "User 2 has User Access Administrator on all staging RGs, meaning they can grant others access to staging. This privilege is nearly as dangerous as Owner.",
+      "terraform_source": "modules/role-assignments/main.tf",
+      "terraform_resource": "azurerm_role_assignment.staging_uaa",
+      "principal": { "type": "User", "index": 2 },
+      "role": "User Access Administrator",
+      "scope": "staging (all RGs)",
+      "expected_findings": [
+        "User Access Administrator assigned to individual user",
+        "Privilege escalation risk"
+      ]
+    },
+    {
+      "id": "S04",
+      "title": "Stale access on decommissioned subscription",
+      "category": "stale-access",
+      "severity": "high",
+      "description": "User 50 retains Reader access on the decommissioned subscription. This simulates forgotten access that should have been revoked when the workload was retired.",
+      "terraform_source": "modules/role-assignments/main.tf",
+      "terraform_resource": "azurerm_role_assignment.stale_decomm",
+      "principal": { "type": "User", "index": 50 },
+      "role": "Reader",
+      "scope": "decommissioned (first RG)",
+      "expected_findings": [
+        "Role assignment on decommissioned resource",
+        "Stale access not cleaned up"
+      ]
+    },
+    {
+      "id": "S05",
+      "title": "Direct user assignments instead of groups",
+      "category": "identity-hygiene",
+      "severity": "medium",
+      "description": "Users 10-14 have individual Contributor assignments on prod_app1's app RG. Best practice is to use group-based assignment for auditability and lifecycle management.",
+      "terraform_source": "modules/role-assignments/main.tf",
+      "terraform_resource": "azurerm_role_assignment.individual_contrib",
+      "principal": { "type": "User", "range": [10, 14] },
+      "role": "Contributor",
+      "scope": "prod_app1/app RG",
+      "expected_findings": [
+        "Direct user role assignment instead of group-based",
+        "Multiple individual assignments on same scope"
+      ]
+    },
+    {
+      "id": "S06",
+      "title": "Mixed storage access models (RBAC vs key-based)",
+      "category": "data-plane",
+      "severity": "medium",
+      "description": "Storage accounts alternate between RBAC-based access (shared_access_key_enabled=false) and key-based access (shared_access_key_enabled=true). This inconsistency makes auditing difficult and may mask unauthorized key usage.",
+      "terraform_source": "modules/storage/main.tf",
+      "terraform_resource": "azurerm_storage_account.accounts",
+      "details": {
+        "pattern": "Even-indexed subscriptions use RBAC, odd-indexed use key access",
+        "risk": "Key-based storage accounts bypass Azure RBAC, making access invisible to role assignment audits"
+      },
+      "expected_findings": [
+        "Inconsistent storage access model across subscriptions",
+        "Key-based storage accounts present"
+      ]
+    },
+    {
+      "id": "S07",
+      "title": "Mixed Key Vault access models (RBAC vs access-policy)",
+      "category": "data-plane",
+      "severity": "medium",
+      "description": "Key Vaults alternate between RBAC authorization and classic access-policy mode (opposite pattern from storage). Access-policy vaults are not auditable through role assignments alone.",
+      "terraform_source": "modules/keyvault/main.tf",
+      "terraform_resource": "azurerm_key_vault.vaults",
+      "details": {
+        "pattern": "Odd-indexed subscriptions use RBAC, even-indexed use access-policy",
+        "risk": "Access-policy Key Vaults require separate audit; RBAC-based vaults appear in role assignments"
+      },
+      "expected_findings": [
+        "Inconsistent Key Vault access model",
+        "Access-policy vaults not visible in RBAC graph"
+      ]
+    },
+    {
+      "id": "S08",
+      "title": "Broad platform group with Owner across infrastructure",
+      "category": "over-privilege",
+      "severity": "high",
+      "description": "The platform-admins group has Owner on all RGs in both connectivity and management subscriptions. While this may be intended for a platform team, the blast radius is significant.",
+      "terraform_source": "modules/role-assignments/main.tf",
+      "terraform_resources": [
+        "azurerm_role_assignment.platform_admins_connectivity",
+        "azurerm_role_assignment.platform_admins_management"
+      ],
+      "principal": { "type": "Group", "ref": "platform-admins" },
+      "role": "Owner",
+      "scope": "connectivity + management_sub (all RGs)",
+      "expected_findings": [
+        "Group with Owner on multiple subscriptions",
+        "Broad administrative access to infrastructure"
+      ]
+    },
+    {
+      "id": "S09",
+      "title": "Individual storage blob data readers",
+      "category": "data-plane",
+      "severity": "low",
+      "description": "Users 20-24 have individual Storage Blob Data Reader assignments on prod_app1's storage account. This grants data-plane read access directly to users rather than through a group.",
+      "terraform_source": "modules/role-assignments/main.tf",
+      "terraform_resource": "azurerm_role_assignment.individual_blob_reader",
+      "principal": { "type": "User", "range": [20, 24] },
+      "role": "Storage Blob Data Reader",
+      "scope": "prod_app1 storage account",
+      "expected_findings": [
+        "Direct user data-plane role assignment",
+        "Data-plane access granted individually"
+      ]
+    },
+    {
+      "id": "S10",
+      "title": "Individual Key Vault secrets access",
+      "category": "data-plane",
+      "severity": "medium",
+      "description": "Users 30-34 have Key Vault Secrets User on the staging vault. This allows them to read, list, and set secrets individually rather than through group-based access.",
+      "terraform_source": "modules/role-assignments/main.tf",
+      "terraform_resource": "azurerm_role_assignment.individual_kv_secrets",
+      "principal": { "type": "User", "range": [30, 34] },
+      "role": "Key Vault Secrets User",
+      "scope": "staging Key Vault",
+      "expected_findings": [
+        "Direct user secrets access",
+        "Individual Key Vault role assignment"
+      ]
+    },
+    {
+      "id": "S11",
+      "title": "Monitoring role sprawl",
+      "category": "monitoring",
+      "severity": "low",
+      "description": "Users 60-64 have individual Monitoring Reader on the management subscription. Combined with the it-ops group's Monitoring Contributor, this creates overlapping monitoring access.",
+      "terraform_source": "modules/role-assignments/main.tf",
+      "terraform_resource": "azurerm_role_assignment.individual_monitoring",
+      "principal": { "type": "User", "range": [60, 64] },
+      "role": "Monitoring Reader",
+      "scope": "management_sub (first RG)",
+      "expected_findings": [
+        "Individual monitoring assignments alongside group-based",
+        "Redundant monitoring permissions"
+      ]
+    },
+    {
+      "id": "S12",
+      "title": "Sandbox with overly broad Contributor",
+      "category": "over-privilege",
+      "severity": "low",
+      "description": "Users 80-84 have individual Contributor on the sandbox, in addition to the sandbox-users group assignment. The sandbox is intentionally permissive, but individual assignments are still worth flagging.",
+      "terraform_source": "modules/role-assignments/main.tf",
+      "terraform_resource": "azurerm_role_assignment.individual_sandbox",
+      "principal": { "type": "User", "range": [80, 84] },
+      "role": "Contributor",
+      "scope": "sandbox (first RG)",
+      "expected_findings": [
+        "Individual assignment redundant with group membership",
+        "Contributor on sandbox resources"
+      ]
+    },
+    {
+      "id": "S13",
+      "title": "Network lead with full infrastructure Owner",
+      "category": "separation-of-duties",
+      "severity": "medium",
+      "description": "User 1 has Owner on all connectivity RGs as an individual assignment. This overlaps with the platform-admins group assignment and should be consolidated.",
+      "terraform_source": "modules/role-assignments/main.tf",
+      "terraform_resource": "azurerm_role_assignment.net_lead",
+      "principal": { "type": "User", "index": 1 },
+      "role": "Owner",
+      "scope": "connectivity (all RGs)",
+      "expected_findings": [
+        "Individual Owner overlapping with group assignment",
+        "Direct user assignment on infrastructure"
+      ]
+    },
+    {
+      "id": "S14",
+      "title": "Website Contributor on staging",
+      "category": "identity-hygiene",
+      "severity": "low",
+      "description": "Users 70-74 have individual Website Contributor on the staging app RG. This allows them to manage App Service resources directly.",
+      "terraform_source": "modules/role-assignments/main.tf",
+      "terraform_resource": "azurerm_role_assignment.individual_web_staging",
+      "principal": { "type": "User", "range": [70, 74] },
+      "role": "Website Contributor",
+      "scope": "staging/app RG",
+      "expected_findings": [
+        "Individual assignment for app management",
+        "Direct user role on staging"
+      ]
+    },
+    {
+      "id": "S15",
+      "title": "CAF-lite management group hierarchy",
+      "category": "hierarchy",
+      "severity": "info",
+      "description": "The management group hierarchy follows a reduced Cloud Adoption Framework pattern with Platform (connectivity, identity, management), Landing Zones (production, staging, development), Sandbox, and Decommissioned. Role inheritance flows down this tree.",
+      "terraform_source": "modules/management-groups/main.tf",
+      "details": {
+        "total_mgs": 11,
+        "levels": 3,
+        "pattern": "CAF-lite (simplified Cloud Adoption Framework)"
+      },
+      "expected_findings": [
+        "Management group hierarchy detected",
+        "Role inheritance paths identified"
+      ]
+    },
+    {
+      "id": "S16",
+      "title": "Overlapping auditor and department memberships",
+      "category": "identity-hygiene",
+      "severity": "low",
+      "description": "Every 3rd user is added to read-only-auditors in addition to their department group. This creates a cross-cutting group that may accumulate permissions beyond the auditor role.",
+      "terraform_source": "modules/identity/main.tf",
+      "terraform_resource": "azuread_group_member.auditors",
+      "details": {
+        "rule": "user_index % 3 == 0",
+        "group": "read-only-auditors",
+        "members": 34
+      },
+      "expected_findings": [
+        "Cross-cutting group membership",
+        "Users in multiple groups with different privilege levels"
+      ]
+    },
+    {
+      "id": "S17",
+      "title": "Incomplete ExpressRoute peering to staging",
+      "category": "network",
+      "severity": "info",
+      "description": "The hub/spoke network topology includes an ExpressRoute circuit, but the peering to staging is intentionally incomplete. This models a real-world misconfiguration where network connectivity was only partially established.",
+      "terraform_source": "modules/networking/main.tf",
+      "details": {
+        "topology": "Hub/spoke with ExpressRoute",
+        "hub": "connectivity/networking VNet",
+        "issue": "Staging spoke not connected through ExpressRoute gateway"
+      },
+      "expected_findings": [
+        "Incomplete network peering detected",
+        "Asymmetric spoke connectivity"
+      ]
+    },
+    {
+      "id": "S18",
+      "title": "Service principal proliferation",
+      "category": "identity-hygiene",
+      "severity": "info",
+      "description": "Five service principals are created for various automation purposes. Each should be reviewed to ensure they follow least-privilege and have appropriate credential rotation.",
+      "terraform_source": "modules/identity/main.tf",
+      "terraform_resource": "azuread_application.apps",
+      "details": {
+        "service_principals": [
+          "deploy-pipeline",
+          "monitoring-agent",
+          "backup-service",
+          "data-pipeline",
+          "ml-inference"
+        ]
+      },
+      "expected_findings": [
+        "Multiple service principals detected",
+        "Workload identity review recommended"
+      ]
+    }
+  ]
+}
