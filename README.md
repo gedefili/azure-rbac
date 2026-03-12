@@ -90,8 +90,10 @@ azure-rbac/
 │   ├── architecture.md          # System architecture
 │   ├── ai-foundry-setup.md      # Azure AI Foundry setup guide
 │   ├── ai-models.md             # AI model selection planning
+│   ├── azure-devops-setup.md    # Azure DevOps CI/CD setup guide
 │   ├── container-apps-plan.md   # Detailed Container Apps deployment plan
-│   └── deployment-options.md    # Deployment, storage, and Key Vault options
+│   ├── deployment-options.md    # Deployment, storage, and Key Vault options
+│   └── security-review.md      # Security review guide
 ├── terraform/                   # Infrastructure-as-code (Azure Container Apps)
 │   ├── main.tf                  # Provider config, resource group
 │   ├── variables.tf             # Input variables
@@ -119,6 +121,10 @@ azure-rbac/
 │   ├── test_azure_client.py
 │   ├── test_graph_builder.py
 │   └── test_security_analyzer.py
+├── azure-pipelines.yml          # Azure DevOps CI/CD pipeline
+├── Dockerfile                   # Multi-stage production container build
+├── .dockerignore                # Excluded files from container image
+├── SECURITY.md                  # Threat model and security checklist
 ├── pyproject.toml
 └── .env.example
 ```
@@ -132,8 +138,11 @@ azure-rbac/
 | [Architecture](docs/architecture.md) | End-to-end system design |
 | [AI Foundry Setup](docs/ai-foundry-setup.md) | How to provision AI Foundry and connect it to this tool |
 | [AI Model Selection](docs/ai-models.md) | Which Azure AI Foundry models to use and why |
+| [Azure DevOps Setup](docs/azure-devops-setup.md) | CI/CD pipeline setup with Workload Identity Federation |
 | [Container Apps Plan](docs/container-apps-plan.md) | Step-by-step Azure Container Apps deployment with Terraform |
 | [Deployment Options](docs/deployment-options.md) | Container, App Service, AKS, and serverless options; storage and Key Vault guidance |
+| [Security Review](docs/security-review.md) | Structured security review guide for the application and infrastructure |
+| [Security Model](SECURITY.md) | Threat model (STRIDE), security checklist, and incident response |
 
 ---
 
