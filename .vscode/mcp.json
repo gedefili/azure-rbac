@@ -1,0 +1,64 @@
+{
+  "servers": {
+    "docs-agent": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/home/vscode/workspaces/agents-iac/packages/docs-agent/dist/mcp-server.js"]
+    },
+    "security-agent": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/home/vscode/workspaces/agents-iac/packages/security-agent/dist/mcp-server.js"]
+    },
+    "gitops-agent": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/home/vscode/workspaces/agents-iac/packages/gitops-agent/dist/mcp-server.js"]
+    },
+    "scaffold-agent": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/home/vscode/workspaces/agents-iac/packages/scaffold-agent/dist/mcp-server.js"]
+    },
+    "iteration-agent": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/home/vscode/workspaces/agents-iac/packages/iteration-agent/dist/mcp-server.js"]
+    },
+    "builder-agent": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/home/vscode/workspaces/agents-iac/packages/builder-agent/dist/mcp-server.js"]
+    },
+    "architect-agent": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/home/vscode/workspaces/agents-iac/packages/architect-agent/dist/mcp-server.js"]
+    },
+    "drift-agent": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/home/vscode/workspaces/agents-iac/packages/drift-agent/dist/mcp-server.js"]
+    },
+    "router-agent": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/home/vscode/workspaces/agents-iac/packages/router-agent/dist/mcp-server.js"]
+    },
+    "meta-agent": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/home/vscode/workspaces/agents-iac/packages/meta-agent/dist/mcp-server.js"]
+    },
+    "maintenance-agent": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/home/vscode/workspaces/agents-iac/packages/maintenance-agent/dist/mcp-server.js"]
+    },
+    "tfx-agent": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/home/vscode/workspaces/agents-iac/packages/tfx-agent/dist/mcp-server.js"]
+    }
+  }
+}
